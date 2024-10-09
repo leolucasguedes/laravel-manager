@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -20,20 +22,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validatedData = $request->validate([
-            'usuario_nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios,email',
-            'password' => 'required|string|min:8|confirmed',
-            'empresa_id' => 'required|exists:empresas,id',
-        ]);
-
         $user = User::create([
-            'usuario_nome' => $validatedData['usuario_nome'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'empresa_id' => $validatedData['empresa_id'],
+            'usuario_nome' => $request->usuario_nome,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'empresa_id' => $request->empresa_id,
         ]);
 
         return response()->json($user, 201);
@@ -52,24 +47,13 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => [
-                'sometimes',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('usuarios')->ignore($id),
-            ],
-            'password' => 'sometimes|string|min:8|confirmed',
-        ]);
-
         $user = User::findOrFail($id);
+        $validatedData = $request->validated();
 
-        if (isset($validatedData['name'])) {
-            $user->name = $validatedData['name'];
+        if (isset($validatedData['usuario_nome'])) {
+            $user->usuario_nome = $validatedData['usuario_nome'];
         }
         if (isset($validatedData['email'])) {
             $user->email = $validatedData['email'];

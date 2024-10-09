@@ -41,7 +41,9 @@ defineProps({
                 </Link>
             </div>
 
-            <h2 class="text-xl font-semibold text-black dark:text-white mb-4">Informações sobre o Projeto</h2>
+            <h2 class="text-xl font-semibold text-black dark:text-white mb-2">Informações sobre o Projeto</h2>
+            <h3 class="text-lg font-semibold mb-4">Repositório: <a class="text-blue-500" 
+                    href="https://github.com/leolucasguedes/laravel-manager">Manager Laravel</a></h3>
             <p class="text-sm mb-4">
                 A API foi desenvolvida com Laravel e utiliza autenticação via tokens com Sanctum. Para acessar as rotas
                 protegidas, faça login e obtenha seu token de acesso.
