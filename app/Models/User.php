@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -25,10 +26,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'usuarios';
     protected $fillable = [
-        'name',
+        'usuario_nome',
         'email',
         'password',
+        'empresa_id',
     ];
 
     /**
@@ -63,5 +67,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function clientes()
+    {
+        return $this->hasMany(Client::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('empresa', function (Builder $builder) {
+            if (auth()->check()) {
+                $empresaId = auth()->user()->empresa_id;
+                $builder->where('empresa_id', $empresaId);
+            }
+        });
     }
 }
