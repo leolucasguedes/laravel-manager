@@ -13,7 +13,7 @@
 
 <br/>
 
-# Description
+# Descrição
 
 API para Gestão de Empresas, Usuários e Clientes
 </br>
@@ -26,7 +26,7 @@ Certifique-se de que possui:
 
 -   PHP 8.3+ instalado.
 -   Composer instalado.
--   Banco de dados configurado (MySQL, SQLite, ou PostgreSQL).
+-   Banco de dados configurado (MySQL).
 
 ### 2. Rodando o Projeto
 
@@ -34,7 +34,7 @@ Clone este repositório e navegue até a pasta do projeto:
 
 ```bash
 git clone https://github.com/leolucasguedes/laravel-manager.git
-cd manager-app
+cd laravel-manager
 ```
 
 Copie o arquivo .env.example para .env:
@@ -81,7 +81,7 @@ Authorization: Bearer TOKEN
 
 #### Endpoints da API
 
-Empresas:
+<b>Empresas:</b>
 <br />
 GET /api/empresas - Lista todas as empresas. <br />
 POST /api/empresas - Cria uma nova empresa. <br />
@@ -89,15 +89,15 @@ GET /api/empresas/{id} - Exibe uma empresa específica. <br />
 PUT /api/empresas/{id} - Atualiza uma empresa. <br />
 DELETE /api/empresas/{id} - Remove uma empresa.
 <br />
-Usuários:
+<b>Usuários:</b>
 <br />
-GET /api/usuarios - Lista todos os usuários. <br />
+GET /api/usuarios - Lista todos os usuários. (limitado por empresa_id) <br />
 POST /api/usuarios - Cria um novo usuário. <br />
 GET /api/usuarios/{id} - Exibe um usuário específico. <br />
 PUT /api/usuarios/{id} - Atualiza um usuário. <br />
 DELETE /api/usuarios/{id} - Remove um usuário.
 <br />
-Clientes:
+<b>Clientes:</b>
 <br />
 GET /api/clientes - Lista todos os clientes. <br />
 POST /api/clientes - Cria um novo cliente. <br />
@@ -106,8 +106,6 @@ PUT /api/clientes/{id} - Atualiza um cliente.<br />
 DELETE /api/clientes/{id} - Remove um cliente.
 
 ### 5. API Reference
-
-#
 
 #### POST /api/login
 
